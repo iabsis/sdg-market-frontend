@@ -28,7 +28,7 @@ RUN apt-get update \
     nginx
 
 ## Copy the entire application
-RUN rm /var/www/html/* && mkdir /tmp/build
+RUN rm /var/www/html/*
 COPY . /tmp/build
 
 ## Install npm dependancies
