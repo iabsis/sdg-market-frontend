@@ -1,7 +1,7 @@
 FROM debian:stretch
 
 MAINTAINER Olivier Bitsch
-WORKDIR /var/www/html
+WORKDIR /tmp/build
 ENV PHP_VER 7.2
 
 ## Defaults values for the config
@@ -33,10 +33,13 @@ COPY . /tmp/build
 
 ## Install npm dependancies
 #USER www-data
-RUN cd /tmp/build && npm install
+RUN npm install
+
+## Check content of the folder
+RUN ls -l
 
 ## Build with Angular
-RUN cd /tmp/build && /tmp/build/node_modules/.bin/ng build #--prod
+RUN node_modules/.bin/ng build #--prod
 
 ## Finally keep only static files and cleanup
 RUN cp -a /tmp/build/dist/github-trading/* /var/www/html && rm -rf /tmp/build
